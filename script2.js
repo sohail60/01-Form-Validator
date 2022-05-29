@@ -19,51 +19,53 @@ function showSuccess(input){    // a function that will be called whenever an in
     parent.classList.add('success');
 }
 
-function checkEmail(input){     // using regex to check email
+function emailCheck(input){     // using regex to check email
     const re =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if(re.test(String(input.value).toLowerCase())){
-        showSuccess(input);
-    } else{
-        showError(input, 'Invalid Email');
-    }
+    return re.test(String(input.value).toLowerCase());
 }
 
-function checkPasswordMatch(input1,input2){    // checking if confirm password is same
-    if (input1.value===input2.value && input1.value !==''){
-        showSuccess(input2);
-    } else{
-        showError(input2, 'Passwords don\'t match');
-    }
+function passwordCheck(input){      // checking password length
+    return (input.value.length>=6 && input.value.length<=12);
 }
 
-function checkRequired(inputArray){
-    inputArray.forEach(function(input){
-        if(input.value.trim()===''){
-            showError(input,`${getFieldName(input)} is required`);
-        } else{
-            showSuccess(input);
-        }
-    });
-}
-
-function getFieldName(input){
-    return input.id.charAt(0).toUpperCase() + input.id.slice(1);
-}
-
-function checkLength(input,min,max){
-    if(input.value.length<min || input.value.length>max){
-        showError(input, `${getFieldName(input)} should be between ${min} and ${max}`);
-    } else{
-        showSuccess(input);
-    }
+function confirmPassword(input){    // checking if confirm password is same
+    return (input.value===password.value);
 }
 
 form.addEventListener('submit',function(e){     // adding eventListener to form submit
     e.preventDefault();    // prevents the form from submitting
-    checkRequired([username,email,password,password2]);
-    checkLength(username,3,15);
-    checkLength(password,6,25);
-    checkPasswordMatch(password,password2);
-    checkEmail(email);
+    
+    if(username.value===''){
+        showError(username,'Username is required');
+    } else{
+        showSuccess(username);
+    }
+    
+    if(email.value===''){
+        showError(email,'Email is required');
+    } else if(emailCheck(email)===false){
+        showError(email,'Invalid Email');
+    }
+    else{
+        showSuccess(email);
+    }
+    
+    if(password.value===''){
+        showError(password,'Password is required');
+    } else if(passwordCheck(password)===false){
+        showError(password,'Password length should be between 6 and 12');
+    }
+    else{
+        showSuccess(password);
+    }
+    
+    if(password2.value===''){
+        showError(password2,'Password is required');
+    } else if(confirmPassword(password2)===false){
+        showError(password2,'Password doesn\'t match');
+    }
+    else{
+        showSuccess(password2);
+    }
 });
