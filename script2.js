@@ -19,35 +19,52 @@ function showSuccess(input){    // a function that will be called whenever an in
     parent.classList.add('success');
 }
 
-function emailCheck(input){     // using regex to check email
+function checkEmail(input){     // using regex to check email
     const re =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    return re.test(String(input.value).toLowerCase());
+    if(re.test(String(input.value).toLowerCase())){
+        showSuccess(input);
+    } else{
+        showError(input, 'Invalid Email');
+    }
 }
 
-function passwordCheck(input){      // checking password length
-    return (input.value.length>=6 && input.value.length<=12);
-}
-
-function confirmPassword(input){    // checking if confirm password is same
-    return (input.value===password.value);
+function checkPasswordMatch(input1,input2){    // checking if confirm password is same
+    if (input1.value===input2.value){
+        showSuccess(input2);
+    } else{
+        showError(input2, 'Passwords don\'t match');
+    }
 }
 
 function checkRequired(inputArray){
+    console.log('Hi');
     inputArray.forEach(function(input){
         if(input.value.trim()===''){
             showError(input,`${getFieldName(input)} is required`);
         } else{
             showSuccess(input);
         }
-    })
+    });
 }
 
 function getFieldName(input){
     return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
+function checkLength(input,min,max){
+    if(input.value.length<min || input.value.length>max){
+        showError(input, `${getFieldName(input)} should be between ${min} and ${max}`);
+    } else{
+        showSuccess(input);
+    }
+}
+
 form.addEventListener('submit',function(e){     // adding eventListener to form submit
     e.preventDefault();    // prevents the form from submitting
+    checkLength(username,3,15);
+    checkLength(password,6,25);
+    checkPasswordMatch(password,password2);
     checkRequired([username,email,password,password2]);
+    checkEmail(email);
 });
