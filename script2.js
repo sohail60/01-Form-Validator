@@ -30,7 +30,7 @@ function checkEmail(input){     // using regex to check email
 }
 
 function checkPasswordMatch(input1,input2){    // checking if confirm password is same
-    if (input1.value===input2.value){
+    if (input1.value===input2.value && input1.value !==''){
         showSuccess(input2);
     } else{
         showError(input2, 'Passwords don\'t match');
@@ -38,7 +38,6 @@ function checkPasswordMatch(input1,input2){    // checking if confirm password i
 }
 
 function checkRequired(inputArray){
-    console.log('Hi');
     inputArray.forEach(function(input){
         if(input.value.trim()===''){
             showError(input,`${getFieldName(input)} is required`);
@@ -62,9 +61,9 @@ function checkLength(input,min,max){
 
 form.addEventListener('submit',function(e){     // adding eventListener to form submit
     e.preventDefault();    // prevents the form from submitting
+    checkRequired([username,email,password,password2]);
     checkLength(username,3,15);
     checkLength(password,6,25);
     checkPasswordMatch(password,password2);
-    checkRequired([username,email,password,password2]);
     checkEmail(email);
 });
