@@ -35,10 +35,9 @@ function confirmPassword(input){    // checking if confirm password is same
 
 form.addEventListener('submit',function(e){     // adding eventListener to form submit
     e.preventDefault();    // prevents the form from submitting
-    
     if(username.value===''){
         showError(username,'Username is required');
-    } else{
+    } else {
         showSuccess(username);
     }
     
@@ -46,8 +45,7 @@ form.addEventListener('submit',function(e){     // adding eventListener to form 
         showError(email,'Email is required');
     } else if(emailCheck(email)===false){
         showError(email,'Invalid Email');
-    }
-    else{
+    } else {
         showSuccess(email);
     }
     
@@ -55,8 +53,7 @@ form.addEventListener('submit',function(e){     // adding eventListener to form 
         showError(password,'Password is required');
     } else if(passwordCheck(password)===false){
         showError(password,'Password length should be between 6 and 12');
-    }
-    else{
+    } else {
         showSuccess(password);
     }
     
@@ -64,8 +61,7 @@ form.addEventListener('submit',function(e){     // adding eventListener to form 
         showError(password2,'Password is required');
     } else if(confirmPassword(password2)===false){
         showError(password2,'Password doesn\'t match');
-    }
-    else{
+    } else {
         showSuccess(password2);
     }
 });

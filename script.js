@@ -24,7 +24,7 @@ function checkEmail(input){     // using regex to check email
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if(re.test(String(input.value).toLowerCase())){
         showSuccess(input);
-    } else{
+    } else {
         showError(input, 'Invalid Email');
     }
 }
@@ -32,7 +32,7 @@ function checkEmail(input){     // using regex to check email
 function checkPasswordMatch(input1,input2){    // checking if confirm password is same
     if (input1.value===input2.value && input1.value !==''){
         showSuccess(input2);
-    } else{
+    } else {
         showError(input2, 'Passwords don\'t match');
     }
 }
@@ -41,7 +41,7 @@ function checkRequired(inputArray){
     inputArray.forEach(function(input){
         if(input.value.trim()===''){
             showError(input,`${getFieldName(input)} is required`);
-        } else{
+        } else {
             showSuccess(input);
         }
     });
