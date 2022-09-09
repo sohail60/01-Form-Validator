@@ -2,8 +2,7 @@ const form=document.getElementById('form');
 const username=document.getElementById('username');
 const email=document.getElementById('email');
 const password=document.getElementById('password');
-const password2=document.getElementById('password2');
-console.log("Hello");
+const confirmPassword=document.getElementById('confirm-password');
 
 function showError(input,message){      // a function that will be called whenever an error is to be printed 
     const parent=input.parentElement;   // in small
@@ -32,13 +31,15 @@ function checkEmail(input){     // using regex to check email
 function checkPasswordMatch(input1,input2){    // checking if confirm password is same
     if (input1.value===input2.value && input1.value !==''){
         showSuccess(input2);
-    } else {
+    } else  if(input1.value===''){
+        showError(input2, 'Please enter password');
+    } else {    
         showError(input2, 'Passwords don\'t match');
     }
 }
 
 function checkRequired(inputArray){
-    inputArray.forEach(function(input){
+    inputArray.forEach((input) => {
         if(input.value.trim()===''){
             showError(input,`${getFieldName(input)} is required`);
         } else {
@@ -47,7 +48,7 @@ function checkRequired(inputArray){
     });
 }
 
-function getFieldName(input){
+function getFieldName(input){       // used to get Field name in Captial Case.
     return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
@@ -61,9 +62,9 @@ function checkLength(input,min,max){
 
 form.addEventListener('submit',function(e){     // adding eventListener to form submit
     e.preventDefault();    // prevents the form from submitting
-    checkRequired([username,email,password,password2]);
+    checkRequired([username,email,password,confirmPassword]);
     checkLength(username,3,15);
     checkLength(password,6,25);
-    checkPasswordMatch(password,password2);
+    checkPasswordMatch(password,confirmPassword);
     checkEmail(email);
 });

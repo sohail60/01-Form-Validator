@@ -1,0 +1,18 @@
+small tag for displaying error messages
+
+CSS
+
+colors:
+success-color: #2ecc71
+error-color: #e74c3c
+nearly white: #f9fafb\
+grey: #777
+
+Notice input border color normally and when focused
+
+*{
+    box-sizing: border-box;
+}
+
+min-height: 100vh;
+box-shadow
